@@ -1,0 +1,22 @@
+    PID USER     %MEM CMD
+    206 root      0.2 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+     53 root      0.2 /usr/lib/systemd/systemd-journald
+    175 root      0.1 /usr/libexec/wsl-pro-service -vv
+      1 root      0.1 /sbin/init
+    154 systemd+  0.1 /usr/lib/systemd/systemd-resolved
+    349 adii      0.1 /usr/lib/systemd/systemd --user
+    172 root      0.1 /usr/lib/systemd/systemd-logind
+    155 systemd+  0.0 /usr/lib/systemd/systemd-timesyncd
+     95 root      0.0 /usr/lib/systemd/systemd-udevd
+    199 syslog    0.0 /usr/sbin/rsyslogd -n -iNONE
+    PID USER     %MEM CMD
+    206 root      0.2 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+     53 root      0.2 /usr/lib/systemd/systemd-journald
+    175 root      0.1 /usr/libexec/wsl-pro-service -vv
+      1 root      0.1 /sbin/init
+    154 systemd+  0.1 /usr/lib/systemd/systemd-resolved
+    349 adii      0.1 /usr/lib/systemd/systemd --user
+    172 root      0.1 /usr/lib/systemd/systemd-logind
+    155 systemd+  0.0 /usr/lib/systemd/systemd-timesyncd
+     95 root      0.0 /usr/lib/systemd/systemd-udevd
+    199 syslog    0.0 /usr/sbin/rsyslogd -n -iNONE

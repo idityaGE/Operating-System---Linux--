@@ -1,63 +1,70 @@
 #!/bin/bash
 
-# path=$1
+path=${1:-$PWD}
+echo -e "Processing Path: $path\n"
 
-# get_path() {
-#   if [[ -z $path ]]; then
-#     echo "Please Provide the path to perform the operation"
-#     echo "For more information try '-h'"
-#   elif [[ $path == /* ]]; then
-#      echo "'$path' is an absolute path"
-#   elif [[ $path == ./* || $path == ../* ]]; then
-#      echo "'$path' is explicitly relative to current directory"
-#   else
-#     echo "'$path' is relative to current directory"
-#   fi
-
-#   if [ -e "$path" ]; then 
-#       if [ -w "$path" ]; then
-#           echo "Path is writable"
-#           return 0
-#       else
-#           echo "Warning: Path is not writable"
-#           return 1
-#       fi
-
-#       if [ -d "$path" ]; then
-#           echo "Path is a valid directory"
-#           return 0
-#       else
-#           echo "Path exists but is neither a file nor a directory"
-#           return 1
-#       fi
-#   else
-#     echo ""
-#     return 1
-#   fi
-
-# }
-
-read_file_name() {
-    local current_path="${1:-$PWD}"  # Get path as parameter
-    
-    # Check if directory exists
-    # if [ ! -d "$current_path" ]; then
-    #     echo "Error: '$current_path' is not a valid directory"
-    #     return 1
-    # fi
-    
-    echo "Scanning directory: $current_path"
-    
-    # Loop through items in current directory
-    for file in "$current_path"/*; do
-        if [[ -f "$file" ]]; then
-            echo "File: $file"
-        elif [[ -d "$file" ]]; then
-            # echo "Directory: $file"
-            # Recursive call for subdirectories
-            read_file_name "$file"
-        fi
-    done
+# Function to validate the provided path
+validate_path() {
+  if [[ ! -d "$path" ]]; then
+    echo "Error: '$path' is not a valid directory"
+    exit 1
+  fi
+  if [[ ! -w "$path" ]]; then
+    echo "Warning: Path is not writable"
+    exit 1
+  fi
 }
 
-read_file_name
+# Function to convert filename to uppercase with versioning if needed
+convert_to_uppercase() {
+  local file="$1"
+  local dir=$(dirname -- "$file")
+  local base=$(basename -- "$file")
+  local ext="${base##*.}"
+  local name="${base%.*}"
+  
+  # Convert name to uppercase
+  local new_name="${name^^}"
+  local count=1
+  
+  # Add version number if file already exists
+  while [[ -e "$dir/$new_name.$ext" ]]; do
+    formatted_count=$(printf "%02d" "$count")
+    new_name="${name^^}.$formatted_count"
+    ((count++))
+  done
+  
+  echo "$dir/$new_name.$ext"
+}
+
+# Function to change .txt files to .tex
+convert_txt_to_tex() {
+  local file="$1"
+  local dir=$(dirname -- "$file")
+  local base=$(basename -- "$file")
+  
+  if [[ "$base" == *.txt ]]; then
+    echo "$dir/${base%.txt}.tex"
+  else
+    echo "$file"
+  fi
+}
+
+# Function to process files in a directory
+process_directory() {
+  local current_path="$1"
+  
+  for file in "$current_path"/*; do
+    if [[ -f "$file" ]]; then
+      new_name=$(convert_to_uppercase "$file")
+      new_name=$(convert_txt_to_tex "$new_name")
+      mv "$file" "$new_name"
+      echo "Renamed: $file -> $new_name"
+    elif [[ -d "$file" ]]; then
+      process_directory "$file"  # Recursive call for subdirectories
+    fi
+  done
+}
+
+validate_path
+process_directory "$path"
