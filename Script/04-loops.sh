@@ -40,7 +40,6 @@ for i in $(seq 10 -2 1); do
     echo "Number: $i"
 done
 
-
 # === While Loop === #
 i=1
 while [ $i -le 5 ]; do
@@ -78,7 +77,6 @@ until [ $count -gt 5 ]; do
     echo "Count: $count"
     ((count++))
 done
-
 
 # === Looping Through Files === #
 for file in *; do

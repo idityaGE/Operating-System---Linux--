@@ -6,10 +6,10 @@
 touch myfile.txt
 
 # === Write to a file === #
-echo "Hello World" > myfile.txt
+echo "Hello World" >myfile.txt
 
 # === Append to a file === #
-echo "Hello World" >> myfile.txt
+echo "Hello World" >>myfile.txt
 
 # === Read from a file === #
 cat myfile.txt
@@ -17,19 +17,19 @@ cat myfile.txt
 # === Read with while loop === #
 while read line; do
     echo $line
-done < myfile.txt
+done <myfile.txt
 
 # === Check if file exists === #
 if [ -f myfile.txt ]; then # can be done for directories as well
     echo "File exists"
-else 
+else
     echo "File does not exist"
 fi
 
 # === Check if file is readable === #
 if [ -r myfile.txt ]; then
     echo "File is readable"
-else 
+else
     echo "File is not readable"
 fi
 

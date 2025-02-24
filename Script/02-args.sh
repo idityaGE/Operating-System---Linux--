@@ -3,12 +3,12 @@
 # === Pass Arguments to a Script === #
 # You can pass arguments to a script when running it from the command line.
 # These arguments are stored in variables with a number sign ($).
-# Accessing Arguments: 
-  # $0 - Name of the script
-  # $1, $2, $3, ... - First, second, third, ... arguments
-  # $@ - All arguments as separate strings
-  # $# - Number of arguments
-  # $* - All arguments as a single string
+# Accessing Arguments:
+# $0 - Name of the script
+# $1, $2, $3, ... - First, second, third, ... arguments
+# $@ - All arguments as separate strings
+# $# - Number of arguments
+# $* - All arguments as a single string
 
 echo "Script Name: $0"
 echo "First Argument: $1"

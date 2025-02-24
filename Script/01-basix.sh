@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 # == Shebang Line: which tells the system that this is a bash script and should be run with /bin/bash == #
 
 #~ Bash (Bourne Again SHell)
@@ -33,7 +33,6 @@ echo "My name is $name and I am $age years old."
 echo "Enter your name: "
 read username
 echo "Hello, $username!"
-
 
 # === Command Substitution === #
 # Command substitution allows the output of a command to replace the command itself.

@@ -36,7 +36,6 @@ echo ${fruits[@]}
 unset fruits[2]
 echo ${fruits[@]}
 
-
 # === Associative arrays === #
 declare -A capitals
 capitals=([India]='New Delhi' [USA]='Washington' [UK]='London')

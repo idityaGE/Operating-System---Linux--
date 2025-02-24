@@ -22,7 +22,7 @@ combined="$greeting, $name!"
 echo $combined
 
 # Uppercase
-echo ${name^} # first letter only
+echo ${name^}  # first letter only
 echo ${name^^} # complete string
 
 # Lowercase
@@ -43,7 +43,7 @@ echo $new_str
 
 # Spliting
 str="apple,banana,orange"
-IFS=',' read -ra fruits <<< "$str"
+IFS=',' read -ra fruits <<<"$str"
 
 for fruit in "${fruits[@]}"; do
     echo "Fruit: $fruit"

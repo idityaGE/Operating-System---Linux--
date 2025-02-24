@@ -4,16 +4,15 @@
 
 # Define a function
 function greet() {
-    echo "Hello, World!"
+  echo "Hello, World!"
 }
 # OR
 greet() {
-    echo "Hello, $1!"
+  echo "Hello, $1!"
 }
 
 # Call the function
 greet Adii
-
 
 # === Function with Return === #
 add_number() {
@@ -23,7 +22,6 @@ add_number() {
 result=$(add_number 10 20)
 echo "Sum: $result"
 
-
 check_odd_even() {
   if [[ $(($1 % 2)) == 0 ]]; then
     return 0 # Even
@@ -32,12 +30,11 @@ check_odd_even() {
   fi
 }
 check_odd_even 4
-if [[ $? == 0 ]]; then  # $? stores the exit status of the last command, where 0 typically indicates success.
+if [[ $? == 0 ]]; then # $? stores the exit status of the last command, where 0 typically indicates success.
   echo "Even"
 else
   echo "Odd"
 fi
-
 
 # === Function with Default Parameter === #
 greet() {

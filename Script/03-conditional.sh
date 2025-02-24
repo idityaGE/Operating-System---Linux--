@@ -16,7 +16,6 @@ if [[ $num -gt 10 ]]; then
     echo "The number is greater than 10"
 fi
 
-
 # if-else statement
 echo "If-else statement:"
 
@@ -27,7 +26,6 @@ elif [[ $num -eq 10 ]]; then
 else
     echo "The number is less than 10"
 fi
-
 
 # === String Comparision === #
 : '
@@ -49,7 +47,6 @@ if [ "$name" = "Alice" ]; then
 else
     echo "You're not Alice."
 fi
-
 
 # === File Comparision === #
 : '
