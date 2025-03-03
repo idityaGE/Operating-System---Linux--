@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
     wait(NULL);
 
     printf("Parent A replacing itself with a new instance of Program A...\n");
-    execl("./q3", "q3", "recursive", NULL);
+    execl("./q3", "q3", "recursive", NULL);  // this will start a recursion
 
     // This code will only run if execl fails
     perror("execl failed to re-run program_a");
