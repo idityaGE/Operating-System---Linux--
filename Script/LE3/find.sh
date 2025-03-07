@@ -27,7 +27,8 @@ process_directory() {
     [[ -e $file ]] || continue
 
     if echo "$file" | grep -q -i "$args"; then
-      echo "$file"
+      # printing with color highlighting for better ux
+      echo "$file" | grep --color=auto -i "$args"
     fi
 
     if [[ -d "$file" && -r "$file" ]]; then
