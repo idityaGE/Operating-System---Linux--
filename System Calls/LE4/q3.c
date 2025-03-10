@@ -3,6 +3,15 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+/**
+ * argc (argument count): An integer that contains the number of arguments passed to the program
+ * argv (argument vector): An array of strings (char pointers) containing the actual arguments
+ *
+ * Example: "./program hello adii"
+ * argc would be 3 (program name + 2 arguments)
+ * argv would contain: ["./program", "hello", "adii"]
+ */
+
 int main(int argc, char *argv[]) {
   printf("Program A started (PID: %d)\n", getpid());
 

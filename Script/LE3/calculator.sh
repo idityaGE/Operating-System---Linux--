@@ -191,8 +191,8 @@ calculate() {
     esac
     
     # Format result to remove trailing zeros if it's a whole number
-    if [[ $result =~ \.0+$ ]]; then
-        result=$(echo "$result" | sed 's/\.0*$//')
+    if [[ $result =~ \.0+$ ]]; then # regex used here
+        result=$(echo "$result" | sed 's/\.0*$//') 
     fi
     
     echo "Result: $result"

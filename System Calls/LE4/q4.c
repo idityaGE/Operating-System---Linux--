@@ -54,19 +54,5 @@ int main(int argc, char *argv[]) {
   // CAUTION: Uncomment only in a safe environment like a VM
   // fork_bomb();
 
-  // Instead of actually running the fork bomb, just explain it
-  printf("Fork bomb implementation explanation:\n");
-  printf("- The program creates an infinite loop of process creation\n");
-  printf("- Each new process also enters the loop, creating more processes\n");
-  printf("- System resources quickly become exhausted\n");
-  printf("- This can cause system crash, unresponsiveness, or denial of service\n\n");
-
-  printf("Mitigation strategies:\n");
-  printf("1. Process limits (RLIMIT_NPROC) restrict how many processes a user can create\n");
-  printf("2. System-wide limits in /etc/security/limits.conf\n");
-  printf("3. Using cgroups to limit process creation by groups\n");
-  printf("4. Proper privilege separation - run services as non-privileged users\n");
-  printf("5. System monitoring and automatic kill policies for runaway processes\n");
-
   return 0;
 }
