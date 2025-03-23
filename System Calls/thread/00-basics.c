@@ -44,6 +44,7 @@ int main() {
   pthread_t thread_1, thread_2;
   int id1 = 1, id2 = 2;
 
+  // int pthread_create(pthread_t * thread, const pthread_attr_t *attr, void *(*start_routine)(void *), void *arg);
   pthread_create(&thread_1, NULL, task, &id1);
   pthread_create(&thread_2, NULL, task, &id2);
 
@@ -54,3 +55,23 @@ int main() {
   printf("Main thread: all thread have completed\n");
   return 0;
 }
+
+/**
+ * What Does NULL in the Second Argument Mean?
+ * In pthread_create(&t2, NULL, signaler, NULL);, the second argument (NULL) tell
+ * pthread_create() to use default thread attributes. This means:
+ * - The thread is joinable (not detached).
+ * - It has default stack size.
+ * - It inherits scheduling policies from the parent thread.
+ */
+
+/**
+ * for Detached use
+ * PTHREAD_CREATE_DETACHED
+ * 
+ * pthread_attr_t attr;
+ * pthread_attr_init(&attr);
+ * pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
+ * pthread_create(&t2, &attr, signaler, NULL);
+ * pthread_attr_destroy(&attr);
+ */
