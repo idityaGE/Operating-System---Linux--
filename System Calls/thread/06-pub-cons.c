@@ -35,7 +35,7 @@ void *producer(void *arg) {
     // Wait if buffer is full
     while (buffer.count == BUFFER_SIZE) {
       printf("Producer: buffer full, waiting...\n");
-      pthread_cond_wait(&buffer.not_full, &buffer.mutex);
+      pthread_cond_wait(&buffer.not_full, &buffer.mutex);  // pthread_cond_wait() makes the thread wait until the condition is met.
     }
 
     // Add item to buffer
@@ -46,7 +46,7 @@ void *producer(void *arg) {
     printf("Producer: inserted item %d\n", item);
 
     // Signal that buffer is not empty
-    pthread_cond_signal(&buffer.not_empty);
+    pthread_cond_signal(&buffer.not_empty);  // pthread_cond_signal() wakes up the waiting thread.
     pthread_mutex_unlock(&buffer.mutex);
 
     sleep(rand() % 3);  // Sleep for random time
