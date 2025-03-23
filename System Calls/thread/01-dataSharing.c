@@ -10,6 +10,11 @@
  * this used to prevent from race conditions.
  */
 
+/**
+ * Race Condition : When multiple threads access shared data simultaneously
+ * Critical Sections: Parts of code that should not be executed by multiple threads simultaneously
+ */
+
 typedef struct {
   int counter;
   pthread_mutex_t mutex;
