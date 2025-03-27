@@ -25,7 +25,7 @@ typedef struct {
 } Average_process_details;
 
 Process_detail* generateRandomProcessDetails(int no_of_processes) {
-  Process_detail* pd = (Process_detail*)malloc(no_of_processes * sizeof(Process_detail));
+  Process_detail* pd = (Process_detail*)calloc(no_of_processes, sizeof(Process_detail));
   if (pd == NULL) {
     perror("Memory allocation failed");
     exit(EXIT_FAILURE);
@@ -40,13 +40,15 @@ Process_detail* generateRandomProcessDetails(int no_of_processes) {
 }
 
 void displayProcessDetails(Process_detail* pd, int no_of_processes) {
-  printf("+---------+--------------+----------------+----------+\n");
-  printf("|   PID   | Arrival Time | Execution Time | Deadline |\n");
-  printf("+---------+--------------+----------------+----------+\n");
+  printf("+---------+--------------+----------------+----------+--------------+---------------+------------------+-----------------+\n");
+  printf("|   PID   | Arrival Time | Execution Time | Deadline | Waiting Time | Response Time | Turn Around Time | Completion Time |\n");
+  printf("+---------+--------------+----------------+----------+--------------+---------------+------------------+-----------------+\n");
   for (int i = 0; i < no_of_processes; i++) {
-    printf("| %-7d | %-12d | %-14d | %-8d |\n", pd[i].PID, pd[i].arrival_time, pd[i].execution_time, pd[i].deadline);
+    printf("| %-7d | %-12d | %-14d | %-8d | %-12d | %-13d | %-16d | %-15d |\n",
+           pd[i].PID, pd[i].arrival_time, pd[i].execution_time, pd[i].deadline,
+           pd[i].waiting_time, pd[i].response_time, pd[i].turn_around_time, pd[i].completion_time);
   }
-  printf("+---------+--------------+----------------+----------+\n");
+  printf("+---------+--------------+----------------+----------+--------------+---------------+------------------+-----------------+\n");
 }
 
 int compareByArrivalTime(Process_detail a, Process_detail b) {
@@ -77,7 +79,7 @@ void sortCol(Process_detail* pd_algo, int n, int (*compare)(Process_detail, Proc
 }
 
 Average_process_details* FCFS(Process_detail* pd, int no_of_processes) {
-  Process_detail* pd_FCFS = (Process_detail*)malloc(no_of_processes * sizeof(Process_detail));
+  Process_detail* pd_FCFS = (Process_detail*)calloc(no_of_processes, sizeof(Process_detail));
   if (pd_FCFS == NULL) {
     perror("Memory allocation failed");
     exit(EXIT_FAILURE);
@@ -88,16 +90,12 @@ Average_process_details* FCFS(Process_detail* pd, int no_of_processes) {
   sortCol(pd_FCFS, no_of_processes, compareByArrivalTime);
 
   int current_time = 0;
-  Average_process_details* avg_details = (Average_process_details*)malloc(sizeof(Average_process_details));
+  Average_process_details* avg_details = (Average_process_details*)calloc(1, sizeof(Average_process_details));
   if (avg_details == NULL) {
     perror("Memory allocation failed");
     free(pd_FCFS);
     exit(EXIT_FAILURE);
   }
-
-  avg_details->average_waiting_time = 0;
-  avg_details->average_response_time = 0;
-  avg_details->average_turn_around_time = 0;
 
   for (int i = 0; i < no_of_processes; i++) {
     if (current_time < pd_FCFS[i].arrival_time)
@@ -119,8 +117,20 @@ Average_process_details* FCFS(Process_detail* pd, int no_of_processes) {
   avg_details->average_response_time /= no_of_processes;
   avg_details->average_turn_around_time /= no_of_processes;
 
+  displayProcessDetails(pd_FCFS, no_of_processes);
+
   free(pd_FCFS);
   return avg_details;
+}
+
+void displayAverageDetails(Average_process_details* pd, char algorithm_name[]) {
+  printf("+--------------------------+-------------------+\n");
+  printf("| Scheduling Algorithm     | %-17s |\n", algorithm_name);
+  printf("+--------------------------+-------------------+\n");
+  printf("| Average Waiting Time     | %-17d |\n", pd->average_waiting_time);
+  printf("| Average Response Time    | %-17d |\n", pd->average_response_time);
+  printf("| Average Turn Around Time | %-17d |\n", pd->average_turn_around_time);
+  printf("+--------------------------+-------------------+\n");
 }
 
 int main() {
@@ -136,6 +146,10 @@ int main() {
   Process_detail* pd = generateRandomProcessDetails(no_of_processes);
 
   displayProcessDetails(pd, no_of_processes);
+
+  Average_process_details* res = FCFS(pd, no_of_processes);
+
+  displayAverageDetails(res, "FCFS");
 
   return 0;
 }
