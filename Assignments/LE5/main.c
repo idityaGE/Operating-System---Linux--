@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -48,8 +49,78 @@ void displayProcessDetails(Process_detail* pd, int no_of_processes) {
   printf("+---------+--------------+----------------+----------+\n");
 }
 
+int compareByArrivalTime(Process_detail a, Process_detail b) {
+  return a.arrival_time - b.arrival_time;
+}
+
+int compareByExecutionTime(Process_detail a, Process_detail b) {
+  return a.execution_time - b.execution_time;
+}
+
+int compareByDeadline(Process_detail a, Process_detail b) {
+  return a.deadline - b.deadline;
+}
+
+void sortCol(Process_detail* pd_algo, int n, int (*compare)(Process_detail, Process_detail)) {
+  for (int i = 0; i < n - 1; i++) {
+    bool isSwapped = false;
+    for (int j = 0; j < n - i - 1; j++) {
+      if (compare(pd_algo[j], pd_algo[j + 1]) > 0) {
+        isSwapped = true;
+        Process_detail temp = pd_algo[j];
+        pd_algo[j] = pd_algo[j + 1];
+        pd_algo[j + 1] = temp;
+      }
+    }
+    if (!isSwapped) break;
+  }
+}
+
 Average_process_details* FCFS(Process_detail* pd, int no_of_processes) {
-  
+  Process_detail* pd_FCFS = (Process_detail*)malloc(no_of_processes * sizeof(Process_detail));
+  if (pd_FCFS == NULL) {
+    perror("Memory allocation failed");
+    exit(EXIT_FAILURE);
+  }
+
+  for (int i = 0; i < no_of_processes; i++)
+    pd_FCFS[i] = pd[i];
+  sortCol(pd_FCFS, no_of_processes, compareByArrivalTime);
+
+  int current_time = 0;
+  Average_process_details* avg_details = (Average_process_details*)malloc(sizeof(Average_process_details));
+  if (avg_details == NULL) {
+    perror("Memory allocation failed");
+    free(pd_FCFS);
+    exit(EXIT_FAILURE);
+  }
+
+  avg_details->average_waiting_time = 0;
+  avg_details->average_response_time = 0;
+  avg_details->average_turn_around_time = 0;
+
+  for (int i = 0; i < no_of_processes; i++) {
+    if (current_time < pd_FCFS[i].arrival_time)
+      current_time = pd_FCFS[i].arrival_time;
+
+    pd_FCFS[i].response_time = current_time - pd_FCFS[i].arrival_time;
+    pd_FCFS[i].waiting_time = pd_FCFS[i].response_time;
+    pd_FCFS[i].completion_time = current_time + pd_FCFS[i].execution_time;
+    pd_FCFS[i].turn_around_time = pd_FCFS[i].completion_time - pd_FCFS[i].arrival_time;
+
+    current_time += pd_FCFS[i].execution_time;
+
+    avg_details->average_waiting_time += pd_FCFS[i].waiting_time;
+    avg_details->average_response_time += pd_FCFS[i].response_time;
+    avg_details->average_turn_around_time += pd_FCFS[i].turn_around_time;
+  }
+
+  avg_details->average_waiting_time /= no_of_processes;
+  avg_details->average_response_time /= no_of_processes;
+  avg_details->average_turn_around_time /= no_of_processes;
+
+  free(pd_FCFS);
+  return avg_details;
 }
 
 int main() {
