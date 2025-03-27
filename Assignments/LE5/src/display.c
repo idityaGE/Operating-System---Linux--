@@ -23,5 +23,7 @@ void displayAverageDetails(Average_process_details* pd, char algorithm_name[]) {
   printf("| Average Waiting Time     | %-17d |\n", pd->average_waiting_time);
   printf("| Average Response Time    | %-17d |\n", pd->average_response_time);
   printf("| Average Turn Around Time | %-17d |\n", pd->average_turn_around_time);
+  printf("| CPU Utilization          | %d%% \t       |\n", pd->CPU_utilization_time);
+  printf("| Total Time               | %-17d |\n", pd->total_time);
   printf("+--------------------------+-------------------+\n");
 }

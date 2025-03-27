@@ -20,6 +20,8 @@ typedef struct {
   int average_waiting_time;
   int average_response_time;
   int average_turn_around_time;
+  int CPU_utilization_time;
+  int total_time;
 } Average_process_details;
 
 // Function declarations for common utilities
