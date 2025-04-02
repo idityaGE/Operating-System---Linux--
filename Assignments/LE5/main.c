@@ -24,8 +24,14 @@ int main() {
   // res = RR(pd, no_of_processes, 100);
   // displayAverageDetails(res, "Round Robin");
 
-  res = SJF(pd, no_of_processes);
-  displayAverageDetails(res, "SJF");
+  // res = SJF(pd, no_of_processes);
+  // displayAverageDetails(res, "SJF");
+
+  // res = Priority(pd, no_of_processes);
+  // displayAverageDetails(res, "Priority");
+
+  res = SRTN(pd, no_of_processes);
+  displayAverageDetails(res, "SRTN");
 
   free(pd);
   if (res) free(res);
