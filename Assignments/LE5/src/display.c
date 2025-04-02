@@ -12,6 +12,50 @@ void clearScreen() {
 #endif
 }
 
+// Add this function to the existing file (no need to modify other functions)
+
+void writeResultsToFile(Process_detail* pd, int no_of_processes, Average_process_details* avg, const char* algorithm_name) {
+  char filename[100];
+  sprintf(filename, "results_%s.txt", algorithm_name);
+
+  FILE* file = fopen(filename, "w");
+  if (file == NULL) {
+    printf("Error: Could not create file %s\n", filename);
+    return;
+  }
+
+  fprintf(file, "=== Results for %s Scheduling Algorithm ===\n\n", algorithm_name);
+
+  // Write process details
+  fprintf(file, "Process Details:\n");
+  fprintf(file, "+---------+--------------+----------------+----------+--------------+---------------+------------------+-----------------+\n");
+  fprintf(file, "| PID     | Arrival Time | Execution Time | Deadline | Waiting Time | Response Time | Turn Around Time | Completion Time |\n");
+  fprintf(file, "+---------+--------------+----------------+----------+--------------+---------------+------------------+-----------------+\n");
+
+  for (int i = 0; i < no_of_processes; i++) {
+    fprintf(file, "| %-7d | %-12d | %-14d | %-8d | %-12d | %-13d | %-16d | %-15d |\n",
+            pd[i].PID, pd[i].arrival_time, pd[i].execution_time, pd[i].deadline,
+            pd[i].waiting_time, pd[i].response_time, pd[i].turn_around_time, pd[i].completion_time);
+  }
+
+  fprintf(file, "+---------+--------------+----------------+----------+--------------+---------------+------------------+-----------------+\n\n");
+
+  // Write average details
+  fprintf(file, "Average Metrics:\n");
+  fprintf(file, "+--------------------------+-------------------+\n");
+  fprintf(file, "| Metric                   | Value             |\n");
+  fprintf(file, "+--------------------------+-------------------+\n");
+  fprintf(file, "| Average Waiting Time     | %-17d |\n", avg->average_waiting_time);
+  fprintf(file, "| Average Response Time    | %-17d |\n", avg->average_response_time);
+  fprintf(file, "| Average Turn Around Time | %-17d |\n", avg->average_turn_around_time);
+  fprintf(file, "| CPU Utilization          | %-15d%% |\n", avg->CPU_utilization_time);
+  fprintf(file, "| Total Time               | %-17d |\n", avg->total_time);
+  fprintf(file, "+--------------------------+-------------------+\n");
+
+  fclose(file);
+  printf("\nResults have been written to %s\n", filename);
+}
+
 void showOptions() {
   printf("Available Scheduling Algorithms:\n");
   printf("  1. First Come First Served (FCFS)\n");

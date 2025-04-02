@@ -18,4 +18,7 @@ void displayAverageDetails(Average_process_details* pd, char algorithm_name[]);
 // Function to display a comparison table of multiple scheduling algorithms
 void displayComparisonTable(Average_process_details** results, int count, char** algorithm_names);
 
+// Function to write results to a file
+void writeResultsToFile(Process_detail* pd, int no_of_processes, Average_process_details* avg, const char* algorithm_name);
+
 #endif  // DISPLAY_H
