@@ -2,6 +2,7 @@
 #define ALGORITHMS_H
 
 #include "common.h"
+#include<limits.h>
 
 // Function declarations for all scheduling algorithms
 Average_process_details* FCFS(Process_detail* pd, int no_of_processes);

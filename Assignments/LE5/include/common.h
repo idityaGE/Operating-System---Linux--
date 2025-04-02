@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 typedef struct {
   int PID;
@@ -30,5 +31,6 @@ int compareByArrivalTime(Process_detail a, Process_detail b);
 int compareByExecutionTime(Process_detail a, Process_detail b);
 int compareByDeadline(Process_detail a, Process_detail b);
 void sortCol(Process_detail* pd_algo, int n, int (*compare)(Process_detail, Process_detail));
+bool isInQueue(int* queue, int size, int process_index);
 
 #endif  // COMMON_H
