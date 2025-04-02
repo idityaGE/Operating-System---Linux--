@@ -118,37 +118,7 @@ int main() {
     }
 
     if (algo_no != 9) {
-        char save_choice;
-        printf("\nDo you want to save these results to a file? (y/n): ");
-        getchar(); // Clear input buffer
-        scanf("%c", &save_choice);
-        
-        if (save_choice == 'y' || save_choice == 'Y') {
-            writeResultsToFile(pd, no_of_processes, res, 
-                algo_no == 1 ? "FCFS" : 
-                algo_no == 2 ? "RoundRobin" : 
-                algo_no == 3 ? "SJF" : 
-                algo_no == 4 ? "SRTN" : 
-                algo_no == 5 ? "HRRN" : 
-                algo_no == 6 ? "Lottery" : 
-                algo_no == 7 ? "EDF" : "Priority");
-            getchar(); // Clear input buffer
-        }
-        
-        free(res);
-    } else {
-        // For "Run All" option
-        char save_choice;
-        printf("\nDo you want to save all results to files? (y/n): ");
-        getchar(); // Clear input buffer
-        scanf("%c", &save_choice);
-        
-        if (save_choice == 'y' || save_choice == 'Y') {
-            printf("\nSaving all results to separate files...\n");
-            writeResultsToFile(pd, no_of_processes, res, "Priority");
-        }
-        
-        free(res);
+      free(res);
     }
     free(pd);
 
