@@ -21,8 +21,11 @@ int main() {
   // res = FCFS(pd, no_of_processes);
   // displayAverageDetails(res, "FCFS");
 
-  res = RR(pd, no_of_processes, 100);
-  displayAverageDetails(res, "Round Robin");
+  // res = RR(pd, no_of_processes, 100);
+  // displayAverageDetails(res, "Round Robin");
+
+  res = SJF(pd, no_of_processes);
+  displayAverageDetails(res, "SJF");
 
   free(pd);
   if (res) free(res);
