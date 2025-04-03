@@ -12,8 +12,7 @@ void clearScreen() {
 #endif
 }
 
-// Add this function to the existing file (no need to modify other functions)
-
+//TODO: Need to fix this one
 void writeResultsToFile(Process_detail* pd, int no_of_processes, Average_process_details* avg, const char* algorithm_name) {
   char filename[100];
   sprintf(filename, "results_%s.txt", algorithm_name);
@@ -26,7 +25,6 @@ void writeResultsToFile(Process_detail* pd, int no_of_processes, Average_process
 
   fprintf(file, "=== Results for %s Scheduling Algorithm ===\n\n", algorithm_name);
 
-  // Write process details
   fprintf(file, "Process Details:\n");
   fprintf(file, "+---------+--------------+----------------+----------+--------------+---------------+------------------+-----------------+\n");
   fprintf(file, "| PID     | Arrival Time | Execution Time | Deadline | Waiting Time | Response Time | Turn Around Time | Completion Time |\n");
@@ -40,7 +38,6 @@ void writeResultsToFile(Process_detail* pd, int no_of_processes, Average_process
 
   fprintf(file, "+---------+--------------+----------------+----------+--------------+---------------+------------------+-----------------+\n\n");
 
-  // Write average details
   fprintf(file, "Average Metrics:\n");
   fprintf(file, "+--------------------------+-------------------+\n");
   fprintf(file, "| Metric                   | Value             |\n");
@@ -94,53 +91,4 @@ void displayAverageDetails(Average_process_details* pd, char algorithm_name[]) {
   printf("| CPU Utilization          | %d%% \t       |\n", pd->CPU_utilization_time);
   printf("| Total Time               | %-17d |\n", pd->total_time);
   printf("+--------------------------+-------------------+\n");
-}
-
-void displayComparisonTable(Average_process_details** results, int count, char** algorithm_names) {
-  printf("\n");
-  printf("+----------------------+");
-  for (int i = 0; i < count; i++) {
-    printf("----------------+");
-  }
-  printf("\n| Metric              |");
-
-  for (int i = 0; i < count; i++) {
-    printf(" %-14s |", algorithm_names[i]);
-  }
-
-  printf("\n+----------------------+");
-  for (int i = 0; i < count; i++) {
-    printf("----------------+");
-  }
-
-  printf("\n| Avg Waiting Time     |");
-  for (int i = 0; i < count; i++) {
-    printf(" %-14d |", results[i]->average_waiting_time);
-  }
-
-  printf("\n| Avg Response Time    |");
-  for (int i = 0; i < count; i++) {
-    printf(" %-14d |", results[i]->average_response_time);
-  }
-
-  printf("\n| Avg Turn Around Time |");
-  for (int i = 0; i < count; i++) {
-    printf(" %-14d |", results[i]->average_turn_around_time);
-  }
-
-  printf("\n| CPU Utilization (%)  |");
-  for (int i = 0; i < count; i++) {
-    printf(" %-14d |", results[i]->CPU_utilization_time);
-  }
-
-  printf("\n| Total Time           |");
-  for (int i = 0; i < count; i++) {
-    printf(" %-14d |", results[i]->total_time);
-  }
-
-  printf("\n+----------------------+");
-  for (int i = 0; i < count; i++) {
-    printf("----------------+");
-  }
-  printf("\n");
 }

@@ -6,7 +6,6 @@
 
 #include "common.h"
 
-// Function declarations for all scheduling algorithms
 Average_process_details* FCFS(Process_detail* pd, int no_of_processes);
 Average_process_details* RR(Process_detail* pd, int no_of_processes, int time_quantum);
 Average_process_details* SJF(Process_detail* pd, int no_of_processes);
