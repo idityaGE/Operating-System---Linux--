@@ -30,7 +30,7 @@ Average_process_details *Lottery(Process_detail *pd, int no_of_processes) {
   int *completed_processes = (int *)calloc(no_of_processes, sizeof(int));
   int *response_recorded = (int *)calloc(no_of_processes, sizeof(int));
 
-  // Allocate tickets based on execution time (inverse - shorter tasks get more tickets)
+  // Allocate tickets based on execution time 
   // This is just one possible ticket allocation policy
   int total_tickets = 100;
   int *tickets = (int *)calloc(no_of_processes, sizeof(int));
