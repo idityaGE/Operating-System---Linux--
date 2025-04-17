@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-void fprint_out(const char * filename, const int rows, const int cols, int matrix[][cols]) {
+int fprint_out(const char * filename, const int rows, const int cols, int matrix[][cols]) {
   FILE *fptr = NULL;
   fptr = fopen(filename, "w");
   if (fptr == NULL) {
@@ -17,11 +17,10 @@ void fprint_out(const char * filename, const int rows, const int cols, int matri
     fprintf(fptr,"\n");
   }
 
-  if (fclose(fptr) == EOF) {
+  if (fclose(fptr) == EOF)
     perror("Error closing file after writing");
-  } else {
+  else 
     printf("File closed successfully after writing.\n");
-  }
 }
 
 int read_matrix_from_file(FILE *inputFile, const int rows, const int cols, int matrix[][cols]) {
@@ -93,11 +92,10 @@ int main() {
   }
 
 
-  if (fclose(input) == EOF) {
+  if (fclose(input) == EOF) 
     perror("Error closing input file after reading");
-  } else {
+  else 
     printf("\nInput file closed successfully.\n");
-  }
-
+  
   return 0;
 }
