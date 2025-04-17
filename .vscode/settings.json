@@ -2,6 +2,8 @@
   // "C_Cpp.errorSquiggles": "disabled",
   "files.associations": {
     ".env": "dotenv",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "math.h": "c",
+    "cmath": "c"
   }
 }
