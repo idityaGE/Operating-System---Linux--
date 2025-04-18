@@ -44,6 +44,24 @@ int read_matrix_from_file(FILE *inputFile, const int rows, const int cols, int m
   return 0;
 }
 
+typedef struct {
+  int row[];
+  int matrix2[][];
+  int rows2;
+  int cols2;
+} thread_input;
+
+void *multiply_one_row(void *arg) {
+  thread_input *ti = (thread_input *)arg;
+  int *res = (int *)malloc(ti.cols2 * sizeof(int));
+
+  for(int i = 0; i < ti.cols2; i++)
+    for (int j = 0; j < ti.rows2; j++)
+      res[i] += (ti.row[j] * ti.matrix2[j][i]);
+  
+  return (void *)res;
+}
+
 int main() {
   FILE *input = NULL;
   input = fopen("input.txt", "r");
@@ -77,18 +95,23 @@ int main() {
 
   printf("\nMatrix 1 read from file:\n");
   for (int i = 0; i < rows1; i++) {
-    for (int j = 0; j < cols1; j++) {
+    for (int j = 0; j < cols1; j++) 
       printf("%d\t", matrix1[i][j]);
-    }
     printf("\n");
   }
 
   printf("\nMatrix 2 read from file:\n");
   for (int i = 0; i < rows2; i++) {
-    for (int j = 0; j < cols2; j++) {
+    for (int j = 0; j < cols2; j++) 
       printf("%d\t", matrix2[i][j]);
-    }
     printf("\n");
+  }
+
+  int numOfThreads = rows1;
+  int resMatrix[rows1][cols2];
+
+  for(int i = 0; i < numOfThreads; i++) {
+    
   }
 
 
