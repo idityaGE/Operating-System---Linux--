@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <time.h>
 
 int fprint_out(const char * filename, const int rows, const int cols, int matrix[][cols]) {
   FILE *fptr = NULL;
   fptr = fopen(filename, "w");
   if (fptr == NULL) {
-    perror("Error opening file for writing");
+    perror("\nError opening file for writing");
     exit(1);
   }
 
@@ -18,9 +19,9 @@ int fprint_out(const char * filename, const int rows, const int cols, int matrix
   }
 
   if (fclose(fptr) == EOF)
-    perror("Error closing file after writing");
+    perror("\nError closing file after writing");
   else 
-    printf("File closed successfully after writing.\n");
+    printf("\nFile closed successfully after writing.\n");
   
   return 0;
 }
@@ -48,9 +49,10 @@ int read_matrix_from_file(FILE *inputFile, const int rows, const int cols, int m
 
 typedef struct {
   int *row;
-  int (*matrix2)[];
-  int rows2;
+  int cols1;
+  int (*matrix2)[3];
   int cols2;
+  int row_idx;
 } thread_input;
 
 void *multiply_one_row(void *arg) {
@@ -60,9 +62,12 @@ void *multiply_one_row(void *arg) {
   for(int i = 0; i < ti->cols2; i++)
     res[i] = 0;
   
-  for(int i = 0; i < ti->cols2; i++)
-    for (int j = 0; j < ti->rows2; j++)
-      res[i] += (ti->row[j] * ti->matrix2[j][i]);
+  for(int j = 0; j < ti->cols2; j++) {
+    for(int k = 0; k < ti->cols1; k++) {
+      res[j] += ti->row[k] * ti->matrix2[k][j];
+    }
+  }
+  
   return (void *)res;
 }
 
@@ -89,7 +94,6 @@ int main() {
     exit(1);
   }
 
-
   printf("\nReading Matrix 2 from input.txt:\n");
   if (read_matrix_from_file(input, rows2, cols2, matrix2) != 0) {
     fprintf(stderr, "Failed to read Matrix 2.\n");
@@ -101,11 +105,16 @@ int main() {
   pthread_t mulThread[numOfThreads];
   thread_input *ti_array = malloc(numOfThreads * sizeof(thread_input));
 
+  clock_t start, end;
+  double cpu_time_used;
+
+  start = clock();
   for(int i = 0; i < numOfThreads; i++) {
     ti_array[i].row = matrix1[i];
-    ti_array[i].matrix2 = (int (*)[])matrix2;
-    ti_array[i].rows2 = rows2;
+    ti_array[i].cols1 = cols1;
+    ti_array[i].matrix2 = (int (*)[3])matrix2;
     ti_array[i].cols2 = cols2;
+    ti_array[i].row_idx = i;
     
     if (pthread_create(&mulThread[i], NULL, multiply_one_row, &ti_array[i]) != 0) {
       perror("Failed to create thread");
@@ -121,6 +130,17 @@ int main() {
     for(int j = 0; j < cols2; j++) 
       resultMatrix[i][j] = row_result[j];
     free(row_result);
+  }
+
+  end = clock();
+  cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC * 1000.0;
+  printf("Time taken: %f milliseconds\n", cpu_time_used); 
+
+  printf("\nResult Matrix :\n");
+  for(int row = 0; row < rows1; row++) {
+    for(int col = 0; col < cols2; col++)
+      printf("%d\t", resultMatrix[row][col]);
+    printf("\n");
   }
 
   if(fprint_out("output.txt", rows1, cols2, resultMatrix) != 0) {
