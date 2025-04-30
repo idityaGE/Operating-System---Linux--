@@ -62,11 +62,9 @@ void *multiply_one_row(void *arg) {
   for(int i = 0; i < ti->cols2; i++)
     res[i] = 0;
   
-  for(int j = 0; j < ti->cols2; j++) {
-    for(int k = 0; k < ti->cols1; k++) {
+  for(int j = 0; j < ti->cols2; j++) 
+    for(int k = 0; k < ti->cols1; k++) 
       res[j] += ti->row[k] * ti->matrix2[k][j];
-    }
-  }
   
   return (void *)res;
 }

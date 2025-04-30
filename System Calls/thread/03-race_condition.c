@@ -4,9 +4,8 @@
 int counter = 0;
 
 void *incrementCounter(void *arg) {
-  for (int i = 0; i < 1000000; i++) {
+  for (int i = 0; i < 1000000; i++) 
     counter++;  // Race condition
-  }
   return NULL;
 }
 
