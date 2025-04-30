@@ -13,7 +13,7 @@ int main() {
     exit(1);
   } else if (pid == 0) {
     printf("Starting pause program\n");
-    execl("./p1", "p1", NULL);
+    execl("./p2_1", "p2_1", NULL);
     perror("execl failed to run p1");
     exit(1);
   } else {
