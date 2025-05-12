@@ -38,7 +38,7 @@ int main() {
       char message[100];
       snprintf(message, sizeof(message), "Message no. : %d", i + 1);
       write(fd[1], message, 100); 
-      sleep(1);
+      // sleep(1);
     }
     close(fd[1]);
     waitpid(pid, NULL, 0);
