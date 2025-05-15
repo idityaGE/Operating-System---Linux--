@@ -12,9 +12,10 @@ int main() {
   mkfifo(fifo, 0666);
   fd = open(fifo, O_WRONLY);
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 100; i++) {
     snprintf(message, sizeof(message), "Message : %d", (i + 1));
     write(fd, message, 100);
+    printf("Message written : %d\n", i+1);
     // sleep(1);
   }
 

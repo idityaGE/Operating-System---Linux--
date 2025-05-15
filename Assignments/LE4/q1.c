@@ -15,7 +15,7 @@ void parent_first();
 
 int main() {
   printf("---- Child First Execution ----\n");
-  child_first();
+  // child_first();
 
   printf("\n---- Parent First Execution ----\n");
   parent_first();

@@ -24,7 +24,7 @@ int main() {
     // Child
     close(fd[1]);
     printf("Child start consuming\n");
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
       // If the pipe is empty but still open for writing (parent hasn't closed fd[1]), the read() blocks — it waits for the parent to write something.
       read(fd[0], buffer, 100); 
       printf("Child received: %s\n", buffer);
@@ -34,9 +34,10 @@ int main() {
     // Parent
     close(fd[0]);
     printf("Parent start producing\n");
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
       char message[100];
       snprintf(message, sizeof(message), "Message no. : %d", i + 1);
+      printf("Message Sent : %d\n", i+1);
       write(fd[1], message, 100); 
       // sleep(1);
     }

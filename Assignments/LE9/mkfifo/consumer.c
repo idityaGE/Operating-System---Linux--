@@ -11,7 +11,7 @@ int main() {
 
   fd = open(fifo, O_RDONLY);
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 100; i++) {
     read(fd, buffer, sizeof(buffer));
     printf("Output : %s\n", buffer);
   }

@@ -26,6 +26,7 @@ int main() {
 
     int signal;
     waitpid(pid, &signal, 0);
+    printf("Signal from chiled is %d\n", signal);
     printf("Parent collected child's exit status, zombie is gone\n");
   }
 

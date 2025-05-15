@@ -18,14 +18,14 @@ EOL
 
 show_menu() {
     echo "===== Calculator ====="
-    echo "1. Add       2. Subtract"
-    echo "3. Multiply  4. Divide"
-    echo "5. Modulo    6. Power"
-    echo "7. sin(x)    8. cos(x)"
-    echo "9. tan(x)    10. ln(x)"
-    echo "11. log10(x) 12. sqrt(x)"
-    echo "13. e^x      14. |x|"
-    echo "15. Factorial 16. Expression"
+    echo "1. Add        || 2. Subtract"
+    echo "3. Multiply   || 4. Divide"
+    echo "5. Modulo     || 6. Power"
+    echo "7. sin(x)     || 8. cos(x)"
+    echo "9. tan(x)     || 10. ln(x)"
+    echo "11. log10(x)  || 12. sqrt(x)"
+    echo "13. e^x       || 14. |x|"
+    echo "15. Factorial || 16. Expression"
     echo "0. Exit"
     echo "======================"
 }
