@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <time.h>
 
-#define BUFFER_SIZE 5
+#define BUFFER_SIZE 100
 #define NUM_PRODUCERS 1
 #define NUM_CONSUMERS 3
 
